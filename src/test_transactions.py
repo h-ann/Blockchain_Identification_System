@@ -1,12 +1,22 @@
 from entity_transactions import EntityTransactions
 from owned_transactions import OwnedTransactions
 from eth_connect import MyContractAddresses, get_contract, compiled_contracts
+from ipfs_connect import add_to_ipfs, get_from_ipfs
 
 # comment unnecessary transactions. test one by one. mine transactions during testing
-# set my attributes
 
 my_entity_address = MyContractAddresses("Iam").address_entity
 my_entity = EntityTransactions("Iam", my_entity_address)
+
+# test ifps integration:
+
+print add_to_ipfs('my_data.txt')
+print get_from_ipfs('QmZpDc97Epm3ynoqNr2BDNbxEWwXMDrukBLB9BRVAyD9LL')
+
+my_entity.set_attribute_ipfs('ipfsdata', 'my_data.txt')
+my_entity.get_attribute_ipfs(0)
+
+# set my attributes
 
 my_entity.set_attribute("name", "Anna Hulita")
 print my_entity.get_attribute(0)
@@ -25,7 +35,7 @@ print another_entity.get_certificate(0)
 another_entity.revoke_signature(0)
 print another_entity.get_revocation(0)
 
-#change access transactions manipulations
+# change access transactions manipulations
 
 my_owned_address = MyContractAddresses("Iam").address_entity
 my_owned = OwnedTransactions("Iam", my_owned_address)
